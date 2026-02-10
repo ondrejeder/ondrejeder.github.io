@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bc. Ondřej Eder | Portfolio</title>
+    <style>
+        /* Základní nastavení a barvy (Dark Mode) */
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-main: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --accent: #4caf50; 
+            --accent-hover: #66bb6a;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Rozložení */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Hlavička */
+        header {
+            text-align: center;
+            padding: 60px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        h1 { margin: 0; font-size: 2.5rem; color: #fff; }
+        .subtitle { color: var(--accent); font-size: 1.2rem; margin-top: 10px; }
+        
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            border: 1px solid #333;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent);
+            color: #121212;
+            border-color: var(--accent);
+        }
+
+        /* Sekce */
+        section { padding: 40px 0; }
+        h2 { border-left: 4px solid var(--accent); padding-left: 15px; margin-bottom: 30px; }
+
+        /* Grid pro projekty */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            border: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        /* Místo pro screenshot */
+        .project-image {
+            width: 100%;
+            height: 180px;
+            background-color: #2c2c2c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            overflow: hidden;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .project-title { font-size: 1.25rem; font-weight: bold; margin-bottom: 10px; color: #fff; }
+        
+        .project-tags { margin-bottom: 10px; }
+        .project-tags span {
+            display: inline-block;
+            background-color: #333;
+            color: var(--accent);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .project-desc { margin: 10px 0 20px 0; font-size: 0.95rem; color: var(--text-secondary); flex-grow: 1; }
+        
+        .btn-project {
+            display: inline-block;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+
+        .btn-project:hover { text-decoration: underline; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid #333;
+            margin-top: 40px;
+        }
+
+        /* Responzivita */
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .social-links a { display: block; margin: 10px auto; width: fit-content; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Bc. Ondřej Eder</h1>
+        <div class="subtitle">Software Developer | Unity & AI Enthusiast</div>
+        <p style="max-width: 700px; margin: 20px auto; color: #a0a0a0;">
+            Softwarový vývojář se specializací na C# a vývoj ve virtuální realitě (Unity). 
+            V poslední době se zaměřuji na tvorbu vlastních aplikací s využitím LLM a automatizaci procesů.
+        </p>
+        <div class="social-links">
+            <!-- Doplň své odkazy -->
+            <a href="https://github.com/ondrejeder" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/ondrejeder" target="_blank">LinkedIn</a>
+            <a href="mailto:ondrejeder@gmail.com">Email</a>
+        </div>
+    </header>
+
+    <section id="projects">
+        <h2>Vybrané Projekty</h2>
+        <div class="projects-grid">
+            
+            <!-- Projekt: AI Tools -->
+            <div class="project-card">
+                <div class="project-image">
+                    <!-- <img src="img/ai-tools.jpg" alt="AI Tools"> -->
+                    <span>Screenshot AI Tools</span>
+                </div>
+                <div class="project-content">
+                    <div class="project-title">AI & Automation Tools</div>
+                    <div class="project-tags">
+                        <span>JavaScript</span>
+                        <span>LLM API</span>
+                        <span>Web Scraping</span>
+                    </div>
+                    <p class="project-desc">
+                        Sada nástrojů pro prohlížeč: automatický listing předmětů (Vinted), scraping dostupnosti produktů a rozšíření funkcí pro Gemini chaty.
+                    </p>
+                    <a href="https://github.com/ondrejeder" class="btn-project">Zobrazit na GitHubu &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Projekt: Fish Detection -->
+            <div class="project-card">
+                <div class="project-image">
+                    <span>Screenshot Ryby</span>
+                </div>
+                <div class="project-content">
+                    <div class="project-title">Fish Detection App</div>
+                    <div class="project-tags">
+                        <span>Python</span>
+                        <span>Computer Vision</span>
+                        <span>Machine Learning</span>
+                    </div>
+                    <p class="project-desc">
+                        Aplikace využívající vlastní vytrénovaný model k detekci počtu a velikosti ryb na fotografiích s webovým rozhraním.
+                    </p>
+                    <a href="#" class="btn-project">Více info &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Projekt: VR Hra -->
+            <div class="project-card">
+                <div class="project-image">
+                    <span>Screenshot (V)Rig</span>
+                </div>
+                <div class="project-content">
+                    <div class="project-title">Build your (V)Rig</div>
+                    <div class="project-tags">
+                        <span>Unity</span>
+                        <span>C#</span>
+                        <span>VR / Meta Quest</span>
+                    </div>
+                    <p class="project-desc">
+                        Edukativní VR hra simulující stavbu PC. Komplexní interakční systém a optimalizace pro standalone headsety. (Bakalářská práce)
+                    </p>
+                    <a href="#" class="btn-project">Zobrazit na SideQuest &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Projekt: OctoBlast -->
+            <div class="project-card">
+                <div class="project-image">
+                    <span>Screenshot OctoBlast</span>
+                </div>
+                <div class="project-content">
+                    <div class="project-title">OctoBlast</div>
+                    <div class="project-tags">
+                        <span>Unity</span>
+                        <span>Android</span>
+                        <span>C#</span>
+                    </div>
+                    <p class="project-desc">
+                        Casual mobilní hra vydaná na Google Play. Kompletní vývoj od návrhu mechanik po nasazení a monetizaci.
+                    </p>
+                    <a href="#" class="btn-project">Zobrazit na Google Play &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Projekt: SaveSync Ally -->
+            <div class="project-card">
+                <div class="project-image">
+                    <span>Screenshot Sync</span>
+                </div>
+                <div class="project-content">
+                    <div class="project-title">SaveSync Ally</div>
+                    <div class="project-tags">
+                        <span>C# .NET</span>
+                        <span>Windows</span>
+                        <span>Linux</span>
+                    </div>
+                    <p class="project-desc">
+                        Multiplatformní aplikace (GUI + daemon) pro vlastní synchronizaci souborů mezi zařízeními.
+                    </p>
+                    <a href="#" class="btn-project">Zobrazit na GitHubu &rarr;</a>
+                </div>
+            </div>
+
+             <!-- Projekt: M365 -->
+             <div class="project-card">
+                <div class="project-image">
+                    <span>Screenshot Script</span>
+                </div>
+                <div class="project-content">
+                    <div class="project-title">M365 Automation</div>
+                    <div class="project-tags">
+                        <span>PowerShell</span>
+                        <span>Azure AD</span>
+                        <span>Intune</span>
+                    </div>
+                    <p class="project-desc">
+                        Automatizační skripty pro správu tenantů, převod dat mezi systémy a generování reportů.
+                    </p>
+                    <a href="#" class="btn-project">Detail projektu &rarr;</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2026 Ondřej Eder.
+    </footer>
+</div>
+
+</body>
+</html>
