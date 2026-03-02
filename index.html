@@ -40,9 +40,7 @@
         h1 { margin: 0; font-size: 2.5rem; color: #fff; }
         .subtitle { color: var(--accent); font-size: 1.2rem; margin-top: 10px; }
         
-        .social-links {
-            margin-top: 20px;
-        }
+        .social-links { margin-top: 20px; }
 
         .social-links a {
             color: var(--text-main);
@@ -53,6 +51,7 @@
             padding: 10px 20px;
             border-radius: 5px;
             transition: all 0.3s;
+            display: inline-block;
         }
 
         .social-links a:hover {
@@ -76,7 +75,7 @@
             background-color: var(--card-bg);
             border-radius: 10px;
             overflow: hidden;
-            transition: transform 0.3s;
+            transition: transform 0.3s, border-color 0.3s;
             border: 1px solid #333;
             display: flex;
             flex-direction: column;
@@ -87,24 +86,53 @@
             border-color: var(--accent);
         }
 
-        /* Místo pro screenshot */
-        .project-image {
+        /* --- CAROUSEL (Posuvník obrázků) --- */
+        .carousel-container {
+            position: relative;
             width: 100%;
-            height: 180px;
+            height: 200px;
             background-color: #2c2c2c;
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .carousel-track img {
+            min-width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: zoom-in; /* Změna kurzoru na lupu */
+        }
+
+        /* Tlačítka posuvníku */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 2;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #555;
-            overflow: hidden;
-        }
-        
-        .project-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            font-size: 14px;
+            transition: background 0.3s;
         }
 
+        .carousel-btn:hover { background: var(--accent); color: #121212; }
+        .carousel-btn.prev { left: 10px; }
+        .carousel-btn.next { right: 10px; }
+
+        /* Obsah karty */
         .project-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
         .project-title { font-size: 1.25rem; font-weight: bold; margin-bottom: 10px; color: #fff; }
         
@@ -130,10 +158,43 @@
             font-size: 0.9rem;
             margin-top: auto;
         }
-
         .btn-project:hover { text-decoration: underline; }
 
-        /* Footer */
+        /* --- LIGHTBOX (Zvětšení fotky) --- */
+        .lightbox {
+            display: none; /* Skryté ve výchozím stavu */
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: 5px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .lightbox-close:hover { color: var(--accent); }
+
         footer {
             text-align: center;
             padding: 40px 0;
@@ -143,7 +204,6 @@
             margin-top: 40px;
         }
 
-        /* Responzivita */
         @media (max-width: 600px) {
             h1 { font-size: 2rem; }
             .social-links a { display: block; margin: 10px auto; width: fit-content; }
@@ -161,8 +221,8 @@
             V poslední době se zaměřuji na tvorbu vlastních aplikací s využitím LLM a automatizaci procesů.
         </p>
         <div class="social-links">
-            <!-- Doplň své odkazy -->
             <a href="https://github.com/ondrejeder" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/TVOJE_ID" target="_blank">LinkedIn</a>
             <a href="mailto:ondrejeder@gmail.com">Email</a>
         </div>
     </header>
@@ -171,118 +231,133 @@
         <h2>Vybrané Projekty</h2>
         <div class="projects-grid">
             
-            <!-- Projekt: AI Tools -->
+            <!-- Projekt 1 -->
             <div class="project-card">
-                <div class="project-image">
-                    <!-- <img src="img/ai-tools.jpg" alt="AI Tools"> -->
-                    <span>Screenshot AI Tools</span>
+                <div class="carousel-container">
+                    <button class="carousel-btn prev">&#10094;</button>
+                    <div class="carousel-track">
+                        <!-- Zde nahraď odkazy za své skutečné obrázky (např. img/ai1.jpg) -->
+                        <img src="img/gemini-pin1.png" alt="Gemini Pin 1">
+                        <img src="img/gemini-pin2.png" alt="Gemini Pin 2">
+                        <img src="img/gemini-pin3.png" alt="Gemini Pin 3">
+                        <img src="img/vinted1.png" alt="Vinted Autofill 1">
+                        <img src="img/vinted2.png" alt="Vinted Autofill 2">
+                    </div>
+                    <button class="carousel-btn next">&#10095;</button>
                 </div>
                 <div class="project-content">
-                    <div class="project-title">AI & Automatizace</div>
+                    <div class="project-title">AI & Automation Tools</div>
                     <div class="project-tags">
-                        <span>JavaScript</span>
-                        <span>LLM API</span>
-                        <span>Web Scraping</span>
+                        <span>JavaScript</span><span>LLM API</span><span>Web Scraping</span>
                     </div>
                     <p class="project-desc">
-                        Sada nástrojů pro prohlížeč: automatický listing předmětů (Vinted), scraping dostupnosti produktů a rozšíření funkcí pro Gemini chaty.
+                        Sada nástrojů pro prohlížeč: automatický listing předmětů na Vinted, rozšíření funkcí pro Gemini chaty pro vytvoření záložek v jednotlivých chatech.
                     </p>
-                    <a href="https://github.com/ondrejeder" class="btn-project">Zobrazit na GitHubu &rarr;</a>
                 </div>
             </div>
 
-            <!-- Projekt: Fish Detection -->
+            <!-- Projekt 2 -->
             <div class="project-card">
-                <div class="project-image">
-                    <span>Screenshot Ryby</span>
+                <div class="carousel-container">
+                    <button class="carousel-btn prev">&#10094;</button>
+                    <div class="carousel-track">
+                        <img src="img/fish-detect.png" alt="Fish App 1">
+                        <img src="img/fish-detect2.png" alt="Fish App 2">
+                    </div>
+                    <button class="carousel-btn next">&#10095;</button>
                 </div>
                 <div class="project-content">
-                    <div class="project-title">ML aplikace pro analýzu fotek ryb</div>
+                    <div class="project-title">Fish Detection App</div>
                     <div class="project-tags">
-                        <span>Python</span>
-                        <span>Computer Vision</span>
-                        <span>Machine Learning</span>
+                        <span>Python</span><span>Computer Vision</span><span>Machine Learning</span>
                     </div>
                     <p class="project-desc">
-                        Aplikace využívající vlastní vytrénovaný model k detekci počtu a velikosti ryb na fotografiích s webovým rozhraním.
+                        Aplikace využívající vlastní vytrénovaný ML model k detekci počtu a velikosti ryb na fotografiích s webovým rozhraním deploynutý na Hugging Face.
                     </p>
-                    <a href="#" class="btn-project">Více info &rarr;</a>
+                    <a href="https://huggingface.co/spaces/ondrejeder/fish-tracking-rtdetr" class="btn-project">Projekt zde &rarr;</a>
                 </div>
             </div>
 
-            <!-- Projekt: VR Hra -->
+            <!-- Projekt 3 -->
             <div class="project-card">
-                <div class="project-image">
-                    <span>Screenshot (V)Rig</span>
+                <div class="carousel-container">
+                    <!-- Pokud u projektu necháš jen 1 obrázek, tlačítka pro listování se automaticky skryjí -->
+                    <button class="carousel-btn prev">&#10094;</button>
+                    <div class="carousel-track">
+                        <img src="img/byvr0.png" alt="BYVR Main">
+                        <img src="img/byvr1.png" alt="BYVR 1">
+                        <img src="img/byvr2.png" alt="BYVR 2">
+                    </div>
+                    <button class="carousel-btn next">&#10095;</button>
                 </div>
                 <div class="project-content">
                     <div class="project-title">Build your (V)Rig</div>
                     <div class="project-tags">
-                        <span>Unity</span>
-                        <span>C#</span>
-                        <span>VR / Meta Quest</span>
+                        <span>Unity</span><span>C#</span><span>VR / Meta Quest</span>
                     </div>
                     <p class="project-desc">
-                        Edukativní VR hra simulující stavbu PC. Komplexní interakční systém a optimalizace pro standalone headsety. (Bakalářská práce)
+                        Edukativní VR hra simulující stavbu PC. Komplexní interakční systém s tutoriálem a přepínání mezi více jazyky pro standalone headsety Meta Quest. (Bakalářská práce)
                     </p>
-                    <a href="https://sidequestvr.com/app/32158/build-your-vrig" target="_blank" class="btn-project">Zobrazit na SideQuest &rarr;</a>
+                    <a href="https://sidequestvr.com/app/32158/build-your-vrig" class="btn-project">Zobrazit na SideQuest &rarr;</a>
+                    <a href="https://drive.google.com/file/d/1b6ICtcJW3RbIj2bDYEQ3P52U0XHYzBXv/view?usp=sharing" class="btn-project">Video z aplikace &rarr;</a>
                 </div>
             </div>
 
-            <!-- Projekt: OctoBlast -->
+            <!-- Projekt 4 -->
             <div class="project-card">
-                <div class="project-image">
-                    <span>Screenshot OctoBlast</span>
+                <div class="carousel-container">
+                    <button class="carousel-btn prev">&#10094;</button>
+                    <div class="carousel-track">
+                        <img src="img/octo1.jpg" alt="OctoBlast 1">
+                        <img src="img/octo2.jpg" alt="OctoBlast 2">
+                        <img src="img/octo3.jpg" alt="OctoBlast 3">
+                    </div>
+                    <button class="carousel-btn next">&#10095;</button>
                 </div>
                 <div class="project-content">
                     <div class="project-title">OctoBlast</div>
                     <div class="project-tags">
-                        <span>Unity</span>
-                        <span>Android</span>
-                        <span>C#</span>
+                        <span>Unity</span><span>Android</span><span>C#</span>
                     </div>
                     <p class="project-desc">
-                        Casual mobilní hra vydaná na Google Play. Kompletní vývoj od návrhu mechanik po nasazení a monetizaci. Aktuálně už delisted kvůli neaktivitě.
+                        Casual mobilní hra vydaná na Google Play. Kompletní vývoj od návrhu mechanik po nasazení a monetizaci. Aktuálně je hra již delistnutá z Google Play.
                     </p>
-                    <a href="#" class="btn-project">Zobrazit na Google Play &rarr;</a>
+                    <a href="https://drive.google.com/file/d/1jYQmvx0Cf9OjOFhwpHClg72ZSowVCKN-/view?usp=sharing" class="btn-project">Odkaz ke stažení APK na Google Disku &rarr;</a>
+                    <a href="https://drive.google.com/file/d/1yJbCdd6I8mDOW-jVSKwWgpurFuYwwgy4/view?usp=sharing" class="btn-project">Odkaz na video hry &rarr;</a>
                 </div>
             </div>
 
-            <!-- Projekt: SaveSync Ally -->
+            <!-- Projekt 5 -->
             <div class="project-card">
-                <div class="project-image">
-                    <span>Screenshot Sync</span>
+                <div class="carousel-container">
+                    <button class="carousel-btn prev">&#10094;</button>
+                    <div class="carousel-track">
+                        <img src="img/syncally1.jpg" alt="SaveSync 1">
+                    </div>
+                    <button class="carousel-btn next">&#10095;</button>
                 </div>
                 <div class="project-content">
                     <div class="project-title">SaveSync Ally</div>
                     <div class="project-tags">
-                        <span>Flutter</span>
-                        <span>Windows</span>
-                        <span>Linux</span>
+                        <span>WSL</span><span>Windows</span><span>Linux</span>
                     </div>
                     <p class="project-desc">
-                        Multiplatformní aplikace (GUI + daemon) pro vlastní synchronizaci souborů mezi zařízeními.
+                        Multiplatformní aplikace (GUI + daemon) pro vlastní synchronizaci souborů mezi zařízeními. Automatické vytváření nových buildů na Linux pomocí skriptu a WSL.
                     </p>
-                    <a href="https://github.com/ondrejeder/save_sync_ally"  target="_blank" class="btn-project">Zobrazit na GitHubu &rarr;</a>
                 </div>
             </div>
 
-             <!-- Projekt: M365 -->
+             <!-- Projekt 6 -->
              <div class="project-card">
-                <div class="project-image">
-                    <span>Screenshot Script</span>
-                </div>
                 <div class="project-content">
-                    <div class="project-title">M365 Automation</div>
+                    <div class="project-title">SAP automation</div>
                     <div class="project-tags">
-                        <span>PowerShell</span>
-                        <span>Azure AD</span>
-                        <span>Intune</span>
+                        <span>SAP</span><span>Power Automate</span>
                     </div>
                     <p class="project-desc">
-                        Automatizační skripty pro správu tenantů, převod dat mezi systémy a generování reportů.
+                        Automatizační flow pro úpravu a přidání dat do SAP.
                     </p>
-                    <a href="#" class="btn-project">Detail projektu &rarr;</a>
+                    <a href="https://photos.app.goo.gl/Luwg28dFpyUnMjCo7" class="btn-project">Ukázka běhu automatizace &rarr;</a>
                 </div>
             </div>
 
@@ -290,9 +365,81 @@
     </section>
 
     <footer>
-        &copy; 2026 Ondřej Eder.
+        &copy; 2026 Ondřej Eder. Vytvořeno pomocí HTML/CSS/JS.
     </footer>
 </div>
+
+<!-- Lightbox Modal -->
+<div id="lightbox" class="lightbox">
+    <span class="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="">
+</div>
+
+<!-- JavaScript pro logiku posuvníku a Lightboxu -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // --- Logika pro Lightbox ---
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const closeBtn = document.querySelector('.lightbox-close');
+
+        // Funkce pro otevření lightboxu
+        const openLightbox = (src) => {
+            lightboxImg.src = src;
+            lightbox.style.display = 'flex';
+        };
+
+        // Zavření po kliknutí na křížek nebo pozadí
+        const closeLightbox = () => { lightbox.style.display = 'none'; };
+        closeBtn.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+            if (e.target !== lightboxImg) closeLightbox();
+        });
+
+        // --- Logika pro Carousel (Posuvník) ---
+        const carousels = document.querySelectorAll('.carousel-container');
+
+        carousels.forEach(carousel => {
+            const track = carousel.querySelector('.carousel-track');
+            const images = Array.from(track.querySelectorAll('img'));
+            const prevBtn = carousel.querySelector('.prev');
+            const nextBtn = carousel.querySelector('.next');
+            let currentIndex = 0;
+
+            // Přiřazení události pro zvětšení fotky na každý obrázek
+            images.forEach(img => {
+                img.addEventListener('click', () => openLightbox(img.src));
+            });
+
+            // Pokud je fotka jen jedna, skryjeme navigační šipky
+            if (images.length <= 1) {
+                if (prevBtn) prevBtn.style.display = 'none';
+                if (nextBtn) nextBtn.style.display = 'none';
+                return; // Nemusíme řešit posouvání
+            }
+
+            // Funkce posunu fotek
+            const updateCarousel = () => {
+                const width = carousel.clientWidth;
+                track.style.transform = `translateX(-${currentIndex * width}px)`;
+            };
+
+            // Reakce na kliknutí na šipky
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
+                updateCarousel();
+            });
+
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
+                updateCarousel();
+            });
+
+            // Při změně velikosti okna přepočítáme posun
+            window.addEventListener('resize', updateCarousel);
+        });
+    });
+</script>
 
 </body>
 </html>
