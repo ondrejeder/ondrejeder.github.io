@@ -3,444 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ing. Ondřej Eder | Portfolio</title>
-    <style>
-        /* Základní nastavení a barvy (Dark Mode) */
-        :root {
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --text-main: #e0e0e0;
-            --text-secondary: #a0a0a0;
-            --accent: #4caf50; 
-            --accent-hover: #66bb6a;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            line-height: 1.6;
-        }
-
-        /* Rozložení */
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Hlavička */
-        header {
-            text-align: center;
-            padding: 60px 0;
-            border-bottom: 1px solid #333;
-        }
-
-        h1 { margin: 0; font-size: 2.5rem; color: #fff; }
-        .subtitle { color: var(--accent); font-size: 1.2rem; margin-top: 10px; }
-        
-        .social-links { margin-top: 20px; }
-
-        .social-links a {
-            color: var(--text-main);
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
-            border: 1px solid #333;
-            padding: 10px 20px;
-            border-radius: 5px;
-            transition: all 0.3s;
-            display: inline-block;
-        }
-
-        .social-links a:hover {
-            background-color: var(--accent);
-            color: #121212;
-            border-color: var(--accent);
-        }
-
-        /* Sekce */
-        section { padding: 40px 0; }
-        h2 { border-left: 4px solid var(--accent); padding-left: 15px; margin-bottom: 30px; }
-
-        /* Grid pro projekty */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .project-card {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: transform 0.3s, border-color 0.3s;
-            border: 1px solid #333;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-        }
-
-        /* --- CAROUSEL (Posuvník obrázků) --- */
-        .carousel-container {
-            position: relative;
-            width: 100%;
-            height: 200px;
-            background-color: #2c2c2c;
-            overflow: hidden;
-        }
-
-        .carousel-track {
-            display: flex;
-            height: 100%;
-            transition: transform 0.4s ease-in-out;
-        }
-
-        .carousel-track img {
-            min-width: 100%;
-            height: 100%;
-            object-fit: cover;
-            cursor: zoom-in; /* Změna kurzoru na lupu */
-        }
-
-        /* Tlačítka posuvníku */
-        .carousel-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            transition: background 0.3s;
-        }
-
-        .carousel-btn:hover { background: var(--accent); color: #121212; }
-        .carousel-btn.prev { left: 10px; }
-        .carousel-btn.next { right: 10px; }
-
-        /* Obsah karty */
-        .project-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-        .project-title { font-size: 1.25rem; font-weight: bold; margin-bottom: 10px; color: #fff; }
-        
-        .project-tags { margin-bottom: 10px; }
-        .project-tags span {
-            display: inline-block;
-            background-color: #333;
-            color: var(--accent);
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            margin-right: 5px;
-            margin-bottom: 5px;
-        }
-        
-        .project-desc { margin: 10px 0 20px 0; font-size: 0.95rem; color: var(--text-secondary); flex-grow: 1; }
-        
-        .btn-project {
-            display: inline-block;
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.9rem;
-            margin-top: auto;
-        }
-        .btn-project:hover { text-decoration: underline; }
-
-        /* --- LIGHTBOX (Zvětšení fotky) --- */
-        .lightbox {
-            display: none; /* Skryté ve výchozím stavu */
-            position: fixed;
-            z-index: 9999;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-
-        .lightbox img {
-            max-width: 90%;
-            max-height: 85vh;
-            border-radius: 5px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
-        }
-
-        .lightbox-close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: #fff;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .lightbox-close:hover { color: var(--accent); }
-
-        footer {
-            text-align: center;
-            padding: 40px 0;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            border-top: 1px solid #333;
-            margin-top: 40px;
-        }
-
-        @media (max-width: 600px) {
-            h1 { font-size: 2rem; }
-            .social-links a { display: block; margin: 10px auto; width: fit-content; }
-        }
-    </style>
+    <title>Ing. Ondřej Eder | Software Developer – Automation, AI &amp; C#</title>
+    <meta name="description" content="Portfolio softwarového vývojáře Ondřeje Edera zaměřené na automatizaci, AI, C#, Python, Go a praktické aplikace.">
+    <meta property="og:title" content="Ing. Ondřej Eder | Software Developer – Automation, AI &amp; C#">
+    <meta property="og:description" content="Portfolio softwarového vývojáře zaměřené na automatizaci, AI, integrace služeb a praktické aplikace.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<div class="container">
-    <header>
-        <h1>Ing. Ondřej Eder</h1>
-        <div class="subtitle">Software Developer | Unity & AI Enthusiast</div>
-        <p style="max-width: 700px; margin: 20px auto; color: #a0a0a0;">
-            Softwarový vývojář se specializací na C# a vývoj ve virtuální realitě (Unity). 
-            V poslední době se zaměřuji na tvorbu vlastních aplikací s využitím LLM a automatizaci procesů.
-        </p>
-        <div class="social-links">
-            <a href="https://github.com/ondrejeder" target="_blank">GitHub</a>
-            <a href="mailto:ondrejeder@gmail.com">Email</a>
+    <nav class="site-nav" aria-label="Hlavní navigace" data-i18n-aria="nav.aria">
+        <div class="nav-inner">
+            <a class="nav-brand" href="#top" aria-label="Ondřej Eder – úvod">OE</a>
+            <div class="nav-links">
+                <a href="#projects" data-i18n="nav.projects">Projekty</a>
+                <a href="#technologies" data-i18n="nav.technologies">Technologie</a>
+                <a href="#contact" data-i18n="nav.contact">Kontakt</a>
+            </div>
+            <div class="language-switcher" aria-label="Výběr jazyka" data-i18n-aria="language.aria">
+                <button type="button" class="language-button is-active" data-language="cs" aria-pressed="true">CZ</button><span aria-hidden="true">|</span><button type="button" class="language-button" data-language="en" aria-pressed="false">EN</button>
+            </div>
         </div>
-    </header>
+    </nav>
 
-    <section id="projects">
-        <h2>Vybrané Projekty</h2>
-        <div class="projects-grid">
-            
-            <!-- Projekt 1 -->
-            <div class="project-card">
-                <div class="carousel-container">
-                    <button class="carousel-btn prev">&#10094;</button>
-                    <div class="carousel-track">
-                        <!-- Zde nahraď odkazy za své skutečné obrázky (např. img/ai1.jpg) -->
-                        <img src="img/gemini-pin1.png" alt="Gemini Pin 1">
-                        <img src="img/gemini-pin2.png" alt="Gemini Pin 2">
-                        <img src="img/gemini-pin3.png" alt="Gemini Pin 3">
-                        <img src="img/vinted1.png" alt="Vinted Autofill 1">
-                        <img src="img/vinted2.png" alt="Vinted Autofill 2">
-                    </div>
-                    <button class="carousel-btn next">&#10095;</button>
-                </div>
-                <div class="project-content">
-                    <div class="project-title">AI & Automation Tools</div>
-                    <div class="project-tags">
-                        <span>JavaScript</span><span>LLM API</span><span>Web Scraping</span>
-                    </div>
-                    <p class="project-desc">
-                        Sada nástrojů pro prohlížeč: automatický listing předmětů na Vinted, rozšíření funkcí pro Gemini chaty pro vytvoření záložek v jednotlivých chatech.
-                    </p>
-                </div>
+    <main id="top" class="container">
+        <header class="hero">
+            <p class="eyebrow" data-i18n="hero.eyebrow">Portfolio</p>
+            <h1>Ing. Ondřej Eder</h1>
+            <p class="subtitle">Software Developer <span aria-hidden="true">|</span> Automation, AI &amp; C#</p>
+            <p class="hero-intro" data-i18n="hero.intro">Softwarový vývojář se zkušenostmi s C#, Pythonem, JavaScriptem, automatizací procesů a tvorbou vlastních aplikací. Zaměřuji se na praktické využití AI a automatizace, integraci služeb a vývoj nástrojů od prototypu až po funkční řešení.</p>
+            <div class="social-links">
+                <a href="https://github.com/ondrejeder" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="mailto:ondrejeder@gmail.com">Email</a>
+                <!-- Future LinkedIn and CV links can reuse this button style. -->
             </div>
+        </header>
 
-            <!-- Projekt 2 -->
-            <div class="project-card">
-                <div class="carousel-container">
-                    <button class="carousel-btn prev">&#10094;</button>
-                    <div class="carousel-track">
-                        <img src="img/fish-detect.png" alt="Fish App 1">
-                        <img src="img/fish-detect2.png" alt="Fish App 2">
-                    </div>
-                    <button class="carousel-btn next">&#10095;</button>
-                </div>
-                <div class="project-content">
-                    <div class="project-title">Fish Detection App</div>
-                    <div class="project-tags">
-                        <span>Python</span><span>Computer Vision</span><span>Machine Learning</span>
-                    </div>
-                    <p class="project-desc">
-                        Aplikace využívající vlastní vytrénovaný ML model k detekci počtu a velikosti ryb na fotografiích s webovým rozhraním deploynutý na Hugging Face.
-                    </p>
-                    <a href="https://huggingface.co/spaces/ondrejeder/fish-tracking-rtdetr" class="btn-project">Projekt zde &rarr;</a>
-                </div>
+        <section id="technologies" aria-labelledby="technologies-heading">
+            <div class="section-heading"><p class="section-kicker" data-i18n="technologies.kicker">Technický přehled</p><h2 id="technologies-heading" data-i18n="technologies.title">Technologie</h2></div>
+            <div class="technology-groups">
+                <article class="technology-group"><h3 data-i18n="technologies.languages">Jazyky</h3><div class="tag-list"><span>C#</span><span>Python</span><span>Go</span><span>JavaScript</span><span>Bash</span></div></article>
+                <article class="technology-group"><h3 data-i18n="technologies.development">Vývoj</h3><div class="tag-list"><span>Git</span><span>Linux</span><span>WSL2</span><span>REST APIs</span><span>Unity</span><span>React</span></div></article>
+                <article class="technology-group"><h3 data-i18n="technologies.automation">Automatizace &amp; AI</h3><div class="tag-list"><span>Power Automate</span><span>SAP</span><span>LLM APIs</span><span>Web Automation</span><span>Computer Vision</span></div></article>
+                <article class="technology-group"><h3 data-i18n="technologies.cloud">Cloud / Integrace</h3><div class="tag-list"><span>Firebase</span><span>Vercel</span><span>Google Drive API</span><span>Google Sheets</span><span>OAuth 2.0</span></div></article>
             </div>
+        </section>
 
-            <!-- Projekt 3 -->
-            <div class="project-card">
-                <div class="carousel-container">
-                    <!-- Pokud u projektu necháš jen 1 obrázek, tlačítka pro listování se automaticky skryjí -->
-                    <button class="carousel-btn prev">&#10094;</button>
-                    <div class="carousel-track">
-                        <img src="img/byvr0.png" alt="BYVR Main">
-                        <img src="img/byvr1.png" alt="BYVR 1">
-                        <img src="img/byvr2.png" alt="BYVR 2">
+        <section id="projects" aria-labelledby="projects-heading">
+            <div class="section-heading"><p class="section-kicker" data-i18n="projects.kicker">Vybraná práce</p><h2 id="projects-heading" data-i18n="projects.title">Projekty</h2></div>
+            <div class="projects-grid">
+                <article class="project-card">
+                    <div id="vinted-media" class="carousel-container carousel-container--contain" data-carousel>
+                        <button class="carousel-btn prev" type="button" aria-label="Předchozí obrázek" data-i18n-aria="carousel.previous">&#10094;</button>
+                        <div class="carousel-track">
+                            <img src="img/brickinvest-01.png" alt="Brick Invest – přehled spravovaných LEGO setů" loading="lazy">
+                            <img src="img/brickinvest-02.png" alt="Vinted automatizace – načtení dat položky" loading="lazy">
+                            <img src="img/brickinvest-03.png" alt="Vinted automatizace – doplněný listing a fotografie" loading="lazy">
+                        </div>
+                        <button class="carousel-btn next" type="button" aria-label="Další obrázek" data-i18n-aria="carousel.next">&#10095;</button>
                     </div>
-                    <button class="carousel-btn next">&#10095;</button>
-                </div>
-                <div class="project-content">
-                    <div class="project-title">Build your (V)Rig</div>
-                    <div class="project-tags">
-                        <span>Unity</span><span>C#</span><span>VR / Meta Quest</span>
+                    <div class="project-content">
+                        <div class="project-heading-row"><div><p class="project-number">01</p><h3>Vinted Listing Automation</h3></div><span class="project-type" data-i18n="projectType.automation">Automatizace</span></div>
+                        <div class="tag-list"><span>React</span><span>JavaScript</span><span>Firebase</span><span>Vercel</span><span>Google Sheets</span><span>Web Automation</span></div>
+                        <p class="project-intro" data-i18n="vinted.intro">Webová aplikace a automatizační workflow pro správu položek a efektivnější tvorbu Vinted inzerátů podle ID LEGO setu.</p>
+                        <div class="project-details">
+                            <div><h4 data-i18n="labels.problem">Problém</h4><p data-i18n="vinted.problem">Ruční vytváření většího množství Vinted inzerátů bylo repetitivní a časově náročné.</p></div>
+                            <div><h4 data-i18n="labels.solution">Řešení</h4><p data-i18n="vinted.solution">Vytvořil jsem vlastní React aplikaci pro správu položek a JavaScript automatizaci, která podle ID LEGO setu pracuje s daty z Google Sheets a automatizuje vyplnění Vinted listingu.</p></div>
+                            <div><h4 data-i18n="labels.work">Moje práce</h4><p data-i18n="vinted.work">Návrh workflow, React frontend, propojení s Firebase a Google Sheets, deployment na Vercel a JavaScript automatizace pro Vinted.</p></div>
+                        </div>
+                        <!-- Add future Vinted live demo, GitHub or video links here in a .project-links element. -->
                     </div>
-                    <p class="project-desc">
-                        Edukativní VR hra simulující stavbu PC. Komplexní interakční systém s tutoriálem a přepínání mezi více jazyky pro standalone headsety Meta Quest. (Bakalářská práce)
-                    </p>
-                    <a href="https://sidequestvr.com/app/32158/build-your-vrig" class="btn-project">Zobrazit na SideQuest &rarr;</a>
-                    <a href="https://drive.google.com/file/d/1b6ICtcJW3RbIj2bDYEQ3P52U0XHYzBXv/view?usp=sharing" class="btn-project">Video z aplikace &rarr;</a>
-                </div>
+                </article>
+
+                <article class="project-card">
+                    <!-- Replace #sap-media with a .carousel-container when the final screenshots are available. -->
+                    <div id="sap-media" class="media-placeholder" role="img" aria-label="Ukázka bude doplněna" data-i18n-aria="media.placeholder"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 13l2.5-2.5 2 2L15 10l5 5M8.5 9h.01"/></svg><span data-i18n="media.placeholder">Ukázka bude doplněna</span></div>
+                    <div class="project-content">
+                        <div class="project-heading-row"><div><p class="project-number">02</p><h3>SAP / Power Automate Automation</h3></div><span class="project-type" data-i18n="projectType.process">Procesní automatizace</span></div>
+                        <div class="tag-list"><span>Power Automate</span><span>SAP</span><span>Excel</span><span>Process Automation</span></div>
+                        <p class="project-intro" data-i18n="sap.intro">Automatizace hromadné aktualizace vícejazyčných produktových popisů v SAP z dat připravených v Excelu.</p>
+                        <div class="project-details">
+                            <div><h4 data-i18n="labels.problem">Problém</h4><p data-i18n="sap.problem">Ruční aktualizace popisů v SAP vyžadovala opakování stejného workflow pro stovky až nižší tisíce produktů.</p></div>
+                            <div><h4 data-i18n="labels.solution">Řešení</h4><p data-i18n="sap.solution">Automatizace vytvořená v Power Automate načítá ID a texty z Excelu, ovládá SAP GUI, otevře správnou operaci, vloží oba jazykové popisy a změny uloží.</p></div>
+                            <div><h4 data-i18n="labels.work">Moje práce</h4><p data-i18n="sap.work">Návrh a implementace automatizačního workflow, mapování dat z Excelu a automatizace jednotlivých kroků v SAP.</p></div>
+                        </div>
+                        <div class="project-links"><a href="https://photos.app.goo.gl/S7fjHkBwd9VP6UiQA" target="_blank" rel="noopener noreferrer" data-i18n="links.video">Video ukázka</a></div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="carousel-container carousel-container--contain" data-carousel><button class="carousel-btn prev" type="button" aria-label="Předchozí obrázek" data-i18n-aria="carousel.previous">&#10094;</button><div class="carousel-track"><img src="img/savesyncally.png" alt="SaveSync Ally – hlavní obrazovka" loading="lazy"><img src="img/savesyncally02.png" alt="SaveSync Ally – nastavení synchronizace" loading="lazy"><img src="img/savesyncally03.png" alt="SaveSync Ally – stav synchronizace" loading="lazy"></div><button class="carousel-btn next" type="button" aria-label="Další obrázek" data-i18n-aria="carousel.next">&#10095;</button></div>
+                    <div class="project-content">
+                        <div class="project-heading-row"><div><p class="project-number">03</p><h3>SaveSync Ally</h3></div><span class="project-type" data-i18n="projectType.software">Software</span></div>
+                        <div class="tag-list"><span>Go</span><span>Fyne</span><span>Google Drive API</span><span>OAuth 2.0</span><span>fsnotify</span><span>Windows</span><span>Linux</span></div>
+                        <p class="project-intro" data-i18n="savesync.intro">Multiplatformní aplikace pro automatickou synchronizaci herních save souborů mezi Windows a Linux/Bazzite zařízeními prostřednictvím Google Drive. Obsahuje nativní GUI a background synchronizační službu.</p>
+                        <div class="project-details"><div><h4 data-i18n="labels.problem">Problém</h4><p data-i18n="savesync.problem">Herní save soubory bez podpory Steam Cloud se mezi Windows PC a Linux handheldem automaticky nesynchronizují.</p></div><div><h4 data-i18n="labels.solution">Řešení</h4><p data-i18n="savesync.solution">Vlastní synchronizační systém sleduje změny souborů pomocí fsnotify a synchronizuje data prostřednictvím Google Drive API. Lokální konfigurace a metadata synchronizace jsou ukládána v JSON souborech.</p></div><div><h4 data-i18n="labels.work">Moje práce</h4><p data-i18n="savesync.work">Návrh a implementace aplikace v Go, GUI ve Fyne, OAuth autentizace, Google Drive backend, background daemon/service a build, instalační a update skripty pro Windows a Linux.</p></div></div>
+                        <!-- Add future SaveSync GitHub, download or video links here in a .project-links element. -->
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="carousel-container" data-carousel><button class="carousel-btn prev" type="button" aria-label="Předchozí obrázek" data-i18n-aria="carousel.previous">&#10094;</button><div class="carousel-track"><img src="img/fish-detect.png" alt="Fish Detection App – detekce ryb" loading="lazy"><img src="img/fish-detect2.png" alt="Fish Detection App – výsledky detekce" loading="lazy"></div><button class="carousel-btn next" type="button" aria-label="Další obrázek" data-i18n-aria="carousel.next">&#10095;</button></div>
+                    <div class="project-content">
+                        <div class="project-heading-row"><div><p class="project-number">04</p><h3>Fish Detection App</h3></div><span class="project-type">AI / ML</span></div>
+                        <div class="tag-list"><span>Python</span><span>Computer Vision</span><span>Machine Learning</span><span>Hugging Face</span></div>
+                        <p class="project-intro" data-i18n="fish.intro">Aplikace využívající vlastní vytrénovaný model k detekci ryb na fotografii a určení jejich počtu a velikosti. Webové rozhraní je nasazené na Hugging Face.</p>
+                        <div class="project-details compact"><div><h4 data-i18n="labels.work">Moje práce</h4><p data-i18n="fish.work">Příprava detekčního řešení v Pythonu, práce s modelem počítačového vidění, zpracování výsledků a nasazení aplikace.</p></div></div>
+                        <div class="project-links"><a href="https://huggingface.co/spaces/ondrejeder/fish-tracking-rtdetr" target="_blank" rel="noopener noreferrer" data-i18n="links.liveDemo">Živá ukázka</a></div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="carousel-container" data-carousel><button class="carousel-btn prev" type="button" aria-label="Předchozí obrázek" data-i18n-aria="carousel.previous">&#10094;</button><div class="carousel-track"><img src="img/byvr0.png" alt="Build your (V)Rig – hlavní scéna" loading="lazy"><img src="img/byvr1.png" alt="Build your (V)Rig – VR interakce" loading="lazy"><img src="img/byvr2.png" alt="Build your (V)Rig – stavba počítače" loading="lazy"></div><button class="carousel-btn next" type="button" aria-label="Další obrázek" data-i18n-aria="carousel.next">&#10095;</button></div>
+                    <div class="project-content">
+                        <div class="project-heading-row"><div><p class="project-number">05</p><h3>Build your (V)Rig</h3></div><span class="project-type" data-i18n="projectType.thesis">Bakalářská práce</span></div>
+                        <div class="tag-list"><span>Unity</span><span>C#</span><span>VR</span><span>Meta Quest</span><span>Localization</span></div>
+                        <p class="project-intro" data-i18n="byvr.intro">Výuková VR aplikace pro standalone headsety Meta Quest, která simuluje sestavení počítače pomocí vlastního interakčního systému, tutoriálu a lokalizace do více jazyků.</p>
+                        <div class="project-details compact"><div><h4 data-i18n="labels.work">Moje práce</h4><p data-i18n="byvr.work">Návrh a vývoj celé aplikace v Unity a C#, VR interakce, výukový průchod, lokalizace a příprava standalone buildu.</p></div></div>
+                        <div class="project-links"><a href="https://sidequestvr.com/app/32158/build-your-vrig" target="_blank" rel="noopener noreferrer">SideQuest</a><a href="https://drive.google.com/file/d/1b6ICtcJW3RbIj2bDYEQ3P52U0XHYzBXv/view?usp=sharing" target="_blank" rel="noopener noreferrer" data-i18n="links.video">Video ukázka</a></div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="carousel-container" data-carousel><button class="carousel-btn prev" type="button" aria-label="Předchozí obrázek" data-i18n-aria="carousel.previous">&#10094;</button><div class="carousel-track"><img src="img/octo1.jpg" alt="OctoBlast – gameplay" loading="lazy"><img src="img/octo2.jpg" alt="OctoBlast – herní obrazovka" loading="lazy"><img src="img/octo3.jpg" alt="OctoBlast – další herní scéna" loading="lazy"></div><button class="carousel-btn next" type="button" aria-label="Další obrázek" data-i18n-aria="carousel.next">&#10095;</button></div>
+                    <div class="project-content">
+                        <div class="project-heading-row"><div><p class="project-number">06</p><h3>OctoBlast</h3></div><span class="project-type" data-i18n="projectType.game">Mobilní hra</span></div>
+                        <div class="tag-list"><span>Unity</span><span>C#</span><span>Android</span><span>Google Play</span><span>Monetization</span></div>
+                        <p class="project-intro" data-i18n="octo.intro">Casual mobilní hra pro Android. Kompletní vývoj od návrhu gameplay mechanik přes implementaci a monetizaci až po vydání na Google Play. Hra je dnes již delistovaná.</p>
+                        <div class="project-details compact"><div><h4 data-i18n="labels.work">Moje práce</h4><p data-i18n="octo.work">Návrh a realizace celého produktu v Unity a C#, herní mechaniky, Android build, integrace monetizace a příprava vydání.</p></div></div>
+                        <div class="project-links"><a href="https://drive.google.com/file/d/1jYQmvx0Cf9OjOFhwpHClg72ZSowVCKN-/view?usp=sharing" target="_blank" rel="noopener noreferrer" data-i18n="links.apk">Stáhnout APK</a><a href="https://drive.google.com/file/d/1yJbCdd6I8mDOW-jVSKwWgpurFuYwwgy4/view?usp=sharing" target="_blank" rel="noopener noreferrer" data-i18n="links.video">Video ukázka</a></div>
+                    </div>
+                </article>
             </div>
+        </section>
 
-            <!-- Projekt 4 -->
-            <div class="project-card">
-                <div class="carousel-container">
-                    <button class="carousel-btn prev">&#10094;</button>
-                    <div class="carousel-track">
-                        <img src="img/octo1.jpg" alt="OctoBlast 1">
-                        <img src="img/octo2.jpg" alt="OctoBlast 2">
-                        <img src="img/octo3.jpg" alt="OctoBlast 3">
-                    </div>
-                    <button class="carousel-btn next">&#10095;</button>
-                </div>
-                <div class="project-content">
-                    <div class="project-title">OctoBlast</div>
-                    <div class="project-tags">
-                        <span>Unity</span><span>Android</span><span>C#</span>
-                    </div>
-                    <p class="project-desc">
-                        Casual mobilní hra vydaná na Google Play. Kompletní vývoj od návrhu mechanik po nasazení a monetizaci. Aktuálně je hra již delistnutá z Google Play.
-                    </p>
-                    <a href="https://drive.google.com/file/d/1jYQmvx0Cf9OjOFhwpHClg72ZSowVCKN-/view?usp=sharing" class="btn-project">Odkaz ke stažení APK na Google Disku &rarr;</a>
-                    <a href="https://drive.google.com/file/d/1yJbCdd6I8mDOW-jVSKwWgpurFuYwwgy4/view?usp=sharing" class="btn-project">Odkaz na video hry &rarr;</a>
-                </div>
-            </div>
+        <section id="contact" class="contact-section" aria-labelledby="contact-heading">
+            <div><p class="section-kicker" data-i18n="contact.kicker">Kontakt</p><h2 id="contact-heading" data-i18n="contact.title">Pojďme se spojit</h2><p data-i18n="contact.text">Zajímá vás některý z projektů nebo možná spolupráce? Napište mi e-mail nebo se podívejte na můj GitHub.</p></div>
+            <div class="social-links"><a href="mailto:ondrejeder@gmail.com" data-i18n="contact.email">Napsat e-mail</a><a href="https://github.com/ondrejeder" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+        </section>
+    </main>
 
-            <!-- Projekt 5 -->
-            <div class="project-card">
-                <div class="carousel-container">
-                    <button class="carousel-btn prev">&#10094;</button>
-                    <div class="carousel-track">
-                        <img src="img/savesyncally.png" alt="SaveSync Ally 1">
-                        <img src="img/savesyncally02.png" alt="SaveSync Ally 2">
-                        <img src="img/savesyncally03.png" alt="SaveSync Ally 3">
-                    </div>
-                    <button class="carousel-btn next">&#10095;</button>
-                </div>
-                <div class="project-content">
-                    <div class="project-title">SaveSync Ally</div>
-                    <div class="project-tags">
-                        <span>WSL</span><span>Windows</span><span>Linux</span>
-                    </div>
-                    <p class="project-desc">
-                        Multiplatformní aplikace (GUI + daemon) pro vlastní synchronizaci souborů mezi zařízeními. Automatické vytváření nových buildů na Linux pomocí skriptu a WSL.
-                    </p>
-                </div>
-            </div>
-
-             <!-- Projekt 6 -->
-             <div class="project-card">
-                <div class="project-content">
-                    <div class="project-title">IS automatizace</div>
-                    <div class="project-tags">
-                        <span>SAP</span><span>Power Automate</span>
-                    </div>
-                    <p class="project-desc">
-                        Automatizace úloh v SAP pomocí Power Automate a vlastních aplikací pro datové toky mezi systémy, například Money S3.
-                    </p>
-                    <a href="https://photos.app.goo.gl/Luwg28dFpyUnMjCo7" class="btn-project">Ukázka běhu automatizace &rarr;</a>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <footer>
-        &copy; 2026 Ondřej Eder. Vytvořeno pomocí HTML/CSS/JS.
-    </footer>
-</div>
-
-<!-- Lightbox Modal -->
-<div id="lightbox" class="lightbox">
-    <span class="lightbox-close">&times;</span>
-    <img id="lightbox-img" src="">
-</div>
-
-<!-- JavaScript pro logiku posuvníku a Lightboxu -->
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        // --- Logika pro Lightbox ---
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const closeBtn = document.querySelector('.lightbox-close');
-
-        // Funkce pro otevření lightboxu
-        const openLightbox = (src) => {
-            lightboxImg.src = src;
-            lightbox.style.display = 'flex';
-        };
-
-        // Zavření po kliknutí na křížek nebo pozadí
-        const closeLightbox = () => { lightbox.style.display = 'none'; };
-        closeBtn.addEventListener('click', closeLightbox);
-        lightbox.addEventListener('click', (e) => {
-            if (e.target !== lightboxImg) closeLightbox();
-        });
-
-        // --- Logika pro Carousel (Posuvník) ---
-        const carousels = document.querySelectorAll('.carousel-container');
-
-        carousels.forEach(carousel => {
-            const track = carousel.querySelector('.carousel-track');
-            const images = Array.from(track.querySelectorAll('img'));
-            const prevBtn = carousel.querySelector('.prev');
-            const nextBtn = carousel.querySelector('.next');
-            let currentIndex = 0;
-
-            // Přiřazení události pro zvětšení fotky na každý obrázek
-            images.forEach(img => {
-                img.addEventListener('click', () => openLightbox(img.src));
-            });
-
-            // Pokud je fotka jen jedna, skryjeme navigační šipky
-            if (images.length <= 1) {
-                if (prevBtn) prevBtn.style.display = 'none';
-                if (nextBtn) nextBtn.style.display = 'none';
-                return; // Nemusíme řešit posouvání
-            }
-
-            // Funkce posunu fotek
-            const updateCarousel = () => {
-                const width = carousel.clientWidth;
-                track.style.transform = `translateX(-${currentIndex * width}px)`;
-            };
-
-            // Reakce na kliknutí na šipky
-            nextBtn.addEventListener('click', () => {
-                currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
-                updateCarousel();
-            });
-
-            prevBtn.addEventListener('click', () => {
-                currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
-                updateCarousel();
-            });
-
-            // Při změně velikosti okna přepočítáme posun
-            window.addEventListener('resize', updateCarousel);
-        });
-    });
-</script>
-
+    <footer><p data-i18n="footer">© 2026 Ondřej Eder. Vytvořeno pomocí HTML, CSS a JavaScriptu.</p></footer>
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Náhled obrázku" data-i18n-aria="lightbox.aria" hidden><button class="lightbox-close" type="button" aria-label="Zavřít náhled" data-i18n-aria="lightbox.close">&times;</button><img id="lightbox-image" src="" alt=""></div>
+    <script src="script.js"></script>
 </body>
 </html>
